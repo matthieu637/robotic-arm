@@ -14,6 +14,7 @@ find_package(ODE REQUIRED)
 #find_package(Drawstuff) #to display the environnement
 find_package(OpenGL)
 find_package(TBB)
+find_package (Threads)
 
 include_directories(${CMAKE_SOURCE_DIR}/include ${ODE_INCLUDE_DIR} ${Boost_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR}/extern/drawstuff/include/ ${TBB_INCLUDE_DIRS})
 
@@ -31,14 +32,14 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -02 -ffastmath")
 
 # if(DRAWSTUFF_FOUND)
   add_executable(visu-keyboard src/test/VisuKeyboard.cpp ${all_include} ${all_sources} ${drawstuff_src})
-  target_link_libraries(visu-keyboard ${ODE_LIBRARY} ${Boost_LIBRARIES} ${DRAWSTUFF_LIBRARY} ${OPENGL_LIBRARIES} ${TBB_LIBRARIES})
+  target_link_libraries(visu-keyboard ${ODE_LIBRARY} ${Boost_LIBRARIES} ${DRAWSTUFF_LIBRARY} ${OPENGL_LIBRARIES} ${TBB_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 
   add_executable(internal-visu src/test/InternalView.cpp ${all_include} ${all_sources} ${drawstuff_src})
-  target_link_libraries(internal-visu ${ODE_LIBRARY} ${Boost_LIBRARIES} ${DRAWSTUFF_LIBRARY} ${OPENGL_LIBRARIES} ${TBB_LIBRARIES})
+  target_link_libraries(internal-visu ${ODE_LIBRARY} ${Boost_LIBRARIES} ${DRAWSTUFF_LIBRARY} ${OPENGL_LIBRARIES} ${TBB_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 # endif(DRAWSTUFF_FOUND)
 
 add_executable(multi-instance src/test/MultiInstance.cpp ${all_include} ${all_sources} ${drawstuff_src} )
-target_link_libraries(multi-instance ${ODE_LIBRARY} ${Boost_LIBRARIES} ${DRAWSTUFF_LIBRARY} ${OPENGL_LIBRARIES} ${TBB_LIBRARIES} )
+target_link_libraries(multi-instance ${ODE_LIBRARY} ${Boost_LIBRARIES} ${DRAWSTUFF_LIBRARY} ${OPENGL_LIBRARIES} ${TBB_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 
 
 file(COPY data DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
